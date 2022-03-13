@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace ECommerce.DataAccess.Abstract
 {
-    public interface IProductDal : IGenericDal<Product>
+    public interface ITitleDal : IGenericDal<Title>
     {
-        List<Product> GetListWithCategory();
+        List<Title> GetListWithDepartment();
     }
 }

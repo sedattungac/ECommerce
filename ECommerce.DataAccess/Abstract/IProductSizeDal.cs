@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace ECommerce.DataAccess.Abstract
 {
-    public interface IProductSizeDal:IGenericDal<ProductColor>
+    public interface IProductSizeDal:IGenericDal<ProductSize>
     {
-        List<ProductColor> GetWithProductColor();
+        List<ProductSize> GetWithProductColor();
     }
 }
