@@ -1,0 +1,33 @@
+﻿@using ECommerce.Entity.Concrete
+@model List<Department>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-contextual">
+        <thead>
+            <tr>
+                <th> # </th>
+                <th> Departman Adı </th>
+                <th> Product </th>
+                <th> Düzenle </th>
+                <th> Sil </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr class="table-info">
+                <td> 1 </td>
+                <td> Herman Beck </td>
+                <td> Photoshop </td>
+                <td> $ 77.99 </td>
+                <td> May 15, 2015 </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
