@@ -9,6 +9,6 @@ namespace ECommerce.DataAccess.Abstract
 {
    public interface IProductColorDal:IGenericDal<ProductColor>
     {
-        List<ProductColor> GetWithProduct();
+        List<ProductColor> GetListWithProduct();
     }
 }

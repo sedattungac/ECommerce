@@ -18,7 +18,7 @@ namespace ECommerce.DataAccess.EntityFramework
         {
             _context = context;
         }
-        public List<ProductColor> GetWithProduct()
+        public List<ProductColor> GetListWithProduct()
         {
             return _context.ProductColors.Include(x => x.Product).ToList();
         }
