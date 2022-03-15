@@ -1,0 +1,28 @@
+﻿@model EntityLayer.Concrete.Department
+
+@{
+    ViewData["Title"] = "DepartmentEdit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card card-info">
+    <div class="card-header">
+        <h3 class="card-title">Departman Düzenleme</h3>
+    </div>
+    @using (Html.BeginForm("EditDepartment", "Department", FormMethod.Post))
+    {
+        <br />
+        <div class="card-body">
+            <div class="col-12">
+                <div class="form-group">
+                    <label>&nbsp; Departman Adı</label>
+                    @Html.HiddenFor(x => x.DepartmentID)
+                    @Html.TextBoxFor(x => x.DepartmentName, new { @class = "form-control text-white", required = "required" })
+                </div>
+            </div>
+            <button class="btn btn-info fas fa-check-circle float-right mr-3"> Kaydet</button>
+            <br />
+        </div>
+
+    }
+</div>

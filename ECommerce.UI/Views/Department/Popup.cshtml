@@ -1,0 +1,159 @@
+﻿@model EntityLayer.Concrete.Department
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/lib/js/jquery/jquery.min.js"></script>
+<script src="~/lib/js/jquery/jquery.js"></script>
+<script src="~/lib/js/jquery/3.6.0/jquery/jquery.min.js"></script>
+<script src="~/lib/js/jquery/3.6.0/jquery/jquery.js"></script>
+<br />
+<div class="col-lg-12 stretch-card">
+    <div class="card">
+
+        <div class="card-body">
+            <div>
+                <h4 class="card-title float-left">Departman Listesi</h4>
+                <button class="btn btn-info float-right" data-toggle="modal" data-target="#myModal">+ Departman Ekle</button>
+
+            </div>
+
+            @*<p class="card-description">
+                    Add class <code>.table-{color}</code>
+                </p>*@
+            <div class="table-responsive mt-2">
+                <table id="tbl" class="table table-bordered table-contextual">
+                    <thead>
+                        <tr>
+                            <th> Departman Adı </th>
+                            @*<th> Ürün Sayısı </th>*@
+                            <th> Düzenle </th>
+                            <th> Sil </th>
+                        </tr>
+                    </thead>
+                    <tbody id="SetDepartmentList">
+
+                        <tr id="Load" class="table-info">
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("CreateDepartment", "Department", FormMethod.Post))
+{
+    <div class="modal" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Departman Ekle</h4>
+                    <button style="color:white;" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>Departman</label>
+                            <input class="form-control text-white" type="text" name="DepartmentName" required/>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <div class="float-right">
+                            <input type="submit" name="Ekle" value="Ekle" class="btn btn-info" />
+                        </div>&nbsp;
+                        <div class="float-left">
+                            <button data-dismiss="modal" class="btn btn-danger"> Kapat</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+
+@using (Html.BeginForm("EditDepartment", "Department", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal" id="myModal2" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Kullanıcı Güncelle</h4>
+                    <button class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="form-group">
+
+                            <div @*style="visibility:hidden;"*@>
+                                @Html.TextBoxFor(x => x.DepartmentID, new { @id = "id", @class = "form-control" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Departman</label>
+                            @Html.TextBoxFor(x => x.DepartmentName, new { @id = "department", @class = "form-control" })
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group container">
+                        <div class="float-left">
+                            <input type="submit" name="Guncelle" value="Guncelle" class="btn btn-info" />
+                        </div>
+                        <div class="float-right">
+                            <button data-dismiss="modal" class="btn btn-danger"> Kapat</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $("#Load").html("Yükleniyor...");
+    //GetUserList JsonResult
+    $.get("/Department/GetDepartmentList/", null, DataBind)
+    //list Json
+    function DataBind(list) {
+        console.log(list);
+        var setData = $("#SetDepartmentList");
+        $("#Load").html("");
+        for (var i = 0; i < list.length; i++) {
+            console.log(list[i])
+            var data = "<tr>" +
+                "<td>" + list[i].departmentName + "</td>" +
+                "<td>" + "<a href='#' class='btn btn-success' onclick='EditDepartment(" + list[i].departmentId + ")'>" + "<i class='mdi mdi-update'></i>" + " Güncelle</a>" + "</td>" +
+                "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteDepartment(" + list[i].departmentId + ")'>" + "<i class='mdi mdi-delete'></i>" + " Sil</a>" + "</td>" +
+                "</tr>";
+            setData.append(data);
+            $("Load").html(" ");
+        }
+    }
+    function EditDepartment(ID) {
+        var url = "/Department/GetEditDeleteDepartment"+ID;
+        $("#myModal2").modal();
+        $.ajax({
+            url: url,
+            type: "get",
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $("#id").val(obj.DepartmentID);
+                $("#department").val(obj.DepartmentName);
+
+            }
+
+        });
+    }
+</script>

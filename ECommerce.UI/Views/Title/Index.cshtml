@@ -1,5 +1,5 @@
 ﻿@using EntityLayer.Concrete
-@model List<Department>
+@model List<Title>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -10,8 +10,8 @@
 
         <div class="card-body">
             <div>
-                <h4 class="card-title float-left">Departman Listesi</h4>
-                <a href="/Department/DepartmentAdd/" class="btn btn-info float-right" >+ Departman Ekle</a>
+                <h4 class="card-title float-left">Ünvan Listesi</h4>
+                <a href="/Title/AddTitle/" class="btn btn-info float-right">+ Ünvan Ekle</a>
 
             </div>
 
@@ -23,15 +23,17 @@
                     <thead>
                         <tr>
                             <th> Departman Adı </th>
+                            <th> Ünvan Adı </th>
                             <th> Düzenle </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var department in Model)
+                        @foreach (var title in Model)
                         {
                             <tr class="table-dark">
-                                <td>@department.DepartmentName</td>
-                                <td><a href="/Department/EditDepartment/@department.DepartmentID" class="btn btn-warning"><i class="mdi mdi-update"></i>Düzenle</a></td>
+                                <td>@title.Department.DepartmentName</td>
+                                <td>@title.TitleName</td>
+                                <td><a href="/Title/EditTitle/@title.TitleID" class="btn btn-warning"><i class="mdi mdi-update"></i>Düzenle</a></td>
                             </tr>
                         }
 

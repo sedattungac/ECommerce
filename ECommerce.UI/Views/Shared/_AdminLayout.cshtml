@@ -74,5 +74,10 @@
     <!-- Custom js for this page -->
     <script src="~/AdminTemplate/template/assets/js/dashboard.js"></script>
     <!-- End custom js for this page -->
+
+
+
+    @await RenderSectionAsync("Scriptst", required: false)
+    @await Component.InvokeAsync("NToastNotify")
 </body>
 </html>

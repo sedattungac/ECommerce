@@ -14,6 +14,8 @@ namespace EntityLayer.Concrete
         public string ApplicationName { get; set; }
         public string ApplicationIcon { get; set; }
         public int ApplicationParent { get; set; }
+        public string ApplicationValue { get; set; }
+        public int ApplicationisMenu { get; set; }
         public string ApplicationHref { get; set; }
         public ICollection<RoleApplication> RoleApplications { get; set; }
 

@@ -1,5 +1,5 @@
 ﻿@using EntityLayer.Concrete
-@model List<Department>
+@model List<User>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -10,8 +10,8 @@
 
         <div class="card-body">
             <div>
-                <h4 class="card-title float-left">Departman Listesi</h4>
-                <a href="/Department/DepartmentAdd/" class="btn btn-info float-right" >+ Departman Ekle</a>
+                <h4 class="card-title float-left">Kullanıcı Listesi</h4>
+                <a href="/User/AddUser/" class="btn btn-info float-right">+ Kullanıcı Ekle</a>
 
             </div>
 
@@ -22,16 +22,24 @@
                 <table class="table table-bordered table-contextual">
                     <thead>
                         <tr>
-                            <th> Departman Adı </th>
+                            <th>Ünvan </th>
+                            <th>Ad Soyad </th>
+                            <th> Kullanıcı Adı </th>
+                            <th> Mail </th>
+                            <th> Şifre </th>
                             <th> Düzenle </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var department in Model)
+                        @foreach (var title in Model)
                         {
                             <tr class="table-dark">
-                                <td>@department.DepartmentName</td>
-                                <td><a href="/Department/EditDepartment/@department.DepartmentID" class="btn btn-warning"><i class="mdi mdi-update"></i>Düzenle</a></td>
+                                <td>@title.Title.TitleName</td>
+                                <td>@title.UserFullName</td>
+                                <td>@title.UserName</td>
+                                <td>@title.Email</td>
+                                <td>@title.Password</td>
+                                <td><a href="/User/EditUser/@title.TitleID" class="btn btn-warning"><i class="mdi mdi-update"></i>Düzenle</a></td>
                             </tr>
                         }
 

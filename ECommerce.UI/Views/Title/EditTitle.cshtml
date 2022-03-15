@@ -1,0 +1,31 @@
+﻿@model EntityLayer.Concrete.Title
+
+@{
+    ViewData["Title"] = "EditTitle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card card-info">
+    <div class="card-header">
+        <h3 class="card-title">Ünvan Düzenleme</h3>
+    </div>
+    @using (Html.BeginForm("EditTitle", "Title", FormMethod.Post))
+    {
+        <div class="card-body">
+            <div class="col-12">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label>Departman</label>
+                        @Html.DropDownListFor(x => x.DepartmentID, (List<SelectListItem>)ViewBag.list, new { @class = "form-control text-white" })
+                    </div>
+                    <label>Ünvan</label>
+                    @Html.HiddenFor(x => x.TitleID)
+                    @Html.TextBoxFor(x => x.TitleName, new { @class = "form-control text-white", required = "required" })
+                </div>
+                <button class="btn btn-info float-right"><i class="mdi mdi-content-save"></i> Güncelle</button>
+            </div>
+        </div>
+        <br />
+    }
+</div>
+

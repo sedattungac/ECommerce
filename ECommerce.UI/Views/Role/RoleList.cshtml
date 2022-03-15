@@ -1,0 +1,136 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using EntityLayer.Concrete
+@model ICollection<RoleApplication>
+
+
+@inject ECommerce.Business.Abstract.IApplicationService applicationService;
+
+
+@{
+    var applications = applicationService.GetAllList();
+    var list = new List<int>();
+}
+
+<div class="col-12 col-sm-12">
+    <div class="card card-info card-tabs">
+
+        <div class="card-header p-0 pt-1">
+            <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                @foreach (var application in applications)
+                {
+                    @if (application.ApplicationParent == 0)
+                    {
+                        var active = application.ApplicationID == 1 ? "true" : "false";
+                        <li class="nav-item">
+
+                            <a class="nav-link bg-warning" id="custom-tabs-two-@application.ApplicationID-tab" data-toggle="pill" href="#custom-tabs-two-@application.ApplicationID" role="tab" aria-controls="custom-tabs-two-@application.ApplicationID" aria-selected="false">
+                                <i class="fas fa-@application.ApplicationIcon"></i>
+                                @application.ApplicationName
+                            </a>
+
+                        </li>
+
+                        list.Add(application.ApplicationID);
+                    }
+                }
+
+
+            </ul>
+        </div>
+        <div class="card-body">
+
+            <div class="tab-content" id="custom-tabs-two-tabContent">
+                @foreach (var id in list)
+                {
+                    var className = id == 1 ? "show active" : "";
+
+                    <div class="tab-pane fade @className" id="custom-tabs-two-@id" role="tabpanel" aria-labelledby="custom-tabs-two-@id-tab">
+                        <div class="row">
+                            <ul class="row w-100" style="list-style-type:none;">
+                                @foreach (var item in applications.Where(x => x.ApplicationParent == id).ToList())
+                                {
+                                    <li class="mb-4 mt-5 col-4">
+                                        @{
+
+                                            var isAccessible = false;
+                                            var role = Model.FirstOrDefault(x => x.ApplicationID == item.ApplicationID);
+                                            if (role != null)
+                                            {
+                                                isAccessible = role.IsAccessible;
+                                            }
+                                        }
+
+                                        @if (isAccessible)//Aktif olup olmadığını kontrol edip ona göre listelememiz gerekiyor
+                                        {
+                                            <input class="input" id="@item.ApplicationID" type="checkbox" name="add-user" checked data-bootstrap-switch data-off-color="danger" data-on-color="success"> @item.ApplicationName
+                                        }
+                                        else
+                                        {
+                                            <input class="input" id="@item.ApplicationID" type="checkbox" name="add-user" data-bootstrap-switch data-off-color="danger" data-on-color="success"> @item.ApplicationName
+                                        }
+
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+
+                    </div>
+                }
+
+
+            </div>
+        </div>
+
+        <div class="card-footer mb-5">
+            <button onclick="processForm()" style="margin-right:20px; float:right;" class="btn btn-info" id="SaveAuthsList"><i class="fas fa-save"></i> Güncelle</button>
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        e.target // newly activated tab
+        e.relatedTarget // previous active tab
+    })
+    function processForm() {
+
+        let jsonData = [];
+        let roleId = $("#RoleID").val();
+
+        $(".input").each(function () {
+            var value = {
+                IsAccessible: $(this).parent().parent().prop('className').includes("bootstrap-switch-on") ? true : false,
+                ApplicationId: $(this).attr('id')
+
+            }
+            jsonData.push(value);
+        });
+
+        $.ajax({
+            type: "POST",
+            url: '/Role/EditRoleApplication',
+            data: JSON.stringify({ RoleID: roleId, RoleApplicationViewModels: jsonData }),
+            contentType: "application/json",
+            dataType: "json",
+            cache: false,
+            processData: false,
+            async: true,
+            success: function (data, textStatus, jQxhr) {
+                alert("İşleminiz gerçekleşti")
+                $('#response pre').html(data);
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                alert("İşleminiz hatalı");
+                console.log(errorThrown);
+            }
+        });
+
+
+    }
+
+
+</script>
