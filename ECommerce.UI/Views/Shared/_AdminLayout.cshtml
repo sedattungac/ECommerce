@@ -14,13 +14,14 @@
     <link rel="stylesheet" href="~/AdminTemplate/template/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="~/AdminTemplate/template/assets/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
+    <link rel="stylesheet" href="~/AdminTemplate/template/assets/vendors/select2/select2.min.css">
+    <link rel="stylesheet" href="~/AdminTemplate/template/assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="~/AdminTemplate/template/assets/vendors/jvectormap/jquery-jvectormap.css">
     <link rel="stylesheet" href="~/AdminTemplate/template/assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="~/AdminTemplate/template/assets/vendors/owl-carousel-2/owl.carousel.min.css">
     <link rel="stylesheet" href="~/AdminTemplate/template/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
     <!-- End plugin css for this page -->
-    <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="~/AdminTemplate/template/assets/css/style.css">
@@ -73,11 +74,20 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="~/AdminTemplate/template/assets/js/dashboard.js"></script>
-    <!-- End custom js for this page -->
+    <script src="~/AdminTemplate/template/assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+    <script src="~/AdminTemplate/template/assets/js/select2.js"></script>
+    <script src="~/AdminTemplate/template/assets/vendors/select2/select2.min.js"></script>
 
 
 
-    @await RenderSectionAsync("Scriptst", required: false)
+
+    <!-- Custom js for this page -->
+    <script src="~/AdminTemplate/template/assets/js/file-upload.js"></script>
+    <script src="~/AdminTemplate/template/assets/js/typeahead.js"></script>
+
+
+
+    @await RenderSectionAsync("Scripts", required: false)
     @await Component.InvokeAsync("NToastNotify")
 </body>
 </html>

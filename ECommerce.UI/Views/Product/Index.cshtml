@@ -1,0 +1,151 @@
+﻿
+<!--@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.semanticui.min.css" rel="stylesheet" />
+
+<div class=" card card-info">
+    <div class="card-header">
+        <h3 class="card-title">Tüzel Başvuru İzleme</h3>
+    </div>
+    <div class="card-body">
+        <table id="sedat" class="col-12" style="text-align:center;">
+            <tbody>
+                <tr>
+                    <td>Talep Kodu : &nbsp;</td>
+                    <td> &nbsp;<input class="form-control" type="text" id="txtClaimNumber" /> &nbsp;&nbsp;</td>
+                    <td>&nbsp;Ad : &nbsp;</td>
+                    <td>&nbsp;<input class="form-control" type="text" id="txtFirstName" /> &nbsp;&nbsp;</td>
+                    <td>&nbsp;Soyad : &nbsp;</td>
+                    <td>&nbsp;<input class="form-control" type="text" id="txtLastName" />  &nbsp;&nbsp;</td>
+                    <td>&nbsp;Vergi Numarası : &nbsp;</td>
+                    <td>&nbsp;<input class="form-control" type="text" id="txtIdentityNum" />  &nbsp;&nbsp;</td>
+                    <td>&nbsp;<button type="button" class="btn btn-primary btn-sm" value="Filtrele" id="btnSearch"><i class="fas fa-filter"></i> Filtrele</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <br />
+        <table id="example" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Talep Kodu</th>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>Veri Numarası</th>
+                    <th>Tarih</th>
+                    <th>Durum</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.semanticui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.11.3/i18n/tr.json"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $("#sedat").DataTable({
+                processing: true, // for show progress bar
+                serverSide: true, // for process server side
+                filter: true, // this is for disable filter (search box)
+                orderMulti: false, // for disable multiple column at once
+                ajax: {
+                    url: "/Product/LoadData",
+                    type: "POST",
+                    dataType: "json"
+
+                },
+                columnDefs: [{
+
+                }],
+                stateSave: true,
+                autoWidth: true,
+                autoFill: false,
+                responsive: true,
+                //buttons: [
+                //    'copy', 'csv', 'excel', 'pdf', 'print'
+                //],
+                language: {
+                    processing: '<i class="fa fa- spinner fa- spin fa - 3x fa - fw"></i><span class="sr - only">Yükleniyor...</span> '
+                },
+                paging: true,
+                searching: { regex: true },
+                lengthMenu: [[10, 25, 50, 10000000], [10, 25, 50, "All"]],
+                order: [[1, 'asc']],
+                columns: [
+                    { "data": "productID", "name": "ProductID" },
+                    { "data": "productName", "name": "ProductName" },
+                    { "data": "productCode", "name": "ProductCode" },
+                    { "data": "productPrice", "name": "ProductPrice" },
+                    { "data": "produtStatus", "name": "ProdutStatus" },
+                    { "data": "productCategory.productCatID", "name": "ProductCategory.ProductCatID" },
+                    {
+                        "render": function (data, type, full, meta) { return '<a class="btn btn-warning btn-sm" href="#' + full.productID + '">Kredi</a>'; }
+                    },
+                    //{
+                    //    data: null,
+                    //    render: function (data, type, row) {
+                    //        return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.CustomerId + "'); >Delete</a>";
+                    //    }
+                    //},
+
+                ],
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+                }
+            });
+            //Searching
+            oTable = $('#sedat').DataTable();
+            $('#btnSearch').click(function () {
+                oTable.columns(1).search($('#txtClaimNumber').val().trim());
+                oTable.columns(2).search($('#txtFirstName').val().trim());
+                oTable.columns(3).search($('#txtLastName').val().trim());
+                oTable.columns(4).search($('#txtIdentityNum').val().trim());
+                oTable.draw();
+            });
+        });-->
+
+
+
+        @*function DeleteData(CustomerID) {
+           if (confirm("Silmek istiyor musunuz? ...?")) {
+           Delete(CustomerID);
+           } else {
+            return false;
+           }
+        }
+        function Delete(CustomerID) {
+         var url = '@Url.Content("~/")' + "DemoGrid/Delete";
+
+         $.post(url, { ID: CustomerID }, function(data) {
+          if (data) {
+            oTable = $('#example').DataTable();
+            oTable.draw();
+         } else {
+            alert("Bir şeyler yanlış gitti!");
+        }
+        });*@
+  <!--/*  }*/
+
+    </script>
+
+}-->
+

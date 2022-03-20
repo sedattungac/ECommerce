@@ -26,6 +26,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="NToastNotify" Version="7.0.0" />
+    <PackageReference Include="System.Linq.Dynamic" Version="1.0.8" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +37,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\lib\js\" />
+    <Folder Include="wwwroot\Products\" />
   </ItemGroup>
 
 </Project>

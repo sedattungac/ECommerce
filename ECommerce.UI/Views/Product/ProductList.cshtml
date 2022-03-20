@@ -1,0 +1,77 @@
+﻿@using EntityLayer.Concrete
+@model List<Product>
+@{
+    ViewData["Title"] = "ProductList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/css/popupimage.css" rel="stylesheet" />
+<div class="col-lg-12 stretch-card">
+    <div class="card">
+
+        <div class="card-body">
+            <div>
+                <h4 class="card-title float-left">Ürün Listesi</h4>
+                <a href="/Product/AddProduct/" class="btn btn-info float-right">+ Ürün Ekle</a>
+            </div>
+
+            @*<p class="card-description">
+                    Add class <code>.table-{color}</code>
+                </p>*@
+            <div class="table-responsive mt-2">
+                <table class="table table-bordered table-contextual">
+                    <thead>
+                        <tr>
+                            <th> Ürün Görsel </th>
+                            <th> Ürün Adı </th>
+                            <th> Ürün Kodu </th>
+                            @*<th> Kategori </th>*@
+                            <th> Fiyat </th>
+                            <th> Görünürlük </th>
+                            <th> Detay </th>
+                            <th> Düzenle </th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                            <tr class="table-dark">
+                                <td class="col-2">
+                                    @*<img id="myImg" style="width:50%; height:50%;" src="@product.ProductImage" />*@
+                                    <a href="@product.ProductImage" target="_blank"> <img id="myImg" style="width:50%; height:50%;" src="@product.ProductImage" /></a>
+                                    @*<div id="myModal" class="modal mt-3">
+                                            <span class="close text-white mt-5">&times;</span>
+                                            <img style="width:100%; height:100% " class="modal-content" id="img01">
+                                            <div id="caption"></div>
+                                        </div>*@
+                                </td>
+                                <td>@product.ProductName</td>
+                                <td>@product.ProductCode</td>
+                                @*<td>@product.ProductCategory.ProductCatName</td>*@
+                                <td>@product.ProductPrice ₺</td>
+                                @if (product.ProductStatus == true)
+                                {
+                                    <td><a class="btn btn-success btn-sm" href="#"><i class="mdi mdi-update"></i> Görünür</a></td>
+                                }
+                                else
+                                {
+                                    <td><a class="btn btn-danger btn-sm" href="#"><i class="mdi mdi-update"></i> Gizli</a></td>
+                                }
+                                <td><a href="/Product/ProductDetail/@product.ProductID" class="btn btn-primary btn-sm"><i class="mdi mdi-eye"></i>Detay</a></td>
+                                <td><a href="/Product/EditProduct/@product.ProductID" class="btn btn-warning btn-sm"><i class="mdi mdi-cogs"></i>Düzenle</a></td>
+
+                            </tr>
+
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/popupimage.js"></script>
+
+

@@ -39,6 +39,8 @@ namespace ECommerce.UI
                });
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDataAccessServices();
+            services.AddSession();
+            services.AddDistributedMemoryCache();
             services.AddBusinessServices();
             services.AddControllersWithViews();
         }
@@ -58,9 +60,8 @@ namespace ECommerce.UI
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -68,7 +69,7 @@ namespace ECommerce.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Department}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

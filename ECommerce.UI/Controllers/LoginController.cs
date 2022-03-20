@@ -1,4 +1,5 @@
-﻿using ECommerce.Business.Abstract;
+﻿using DataAccessLayer.Concrete;
+using ECommerce.Business.Abstract;
 using ECommerce.UI.Models;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication;
@@ -18,37 +19,40 @@ namespace ECommerce.UI.Controllers
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUserService _userService;
-        private readonly SignInManager<User> _signInManager;
-        public LoginController(IHttpContextAccessor httpContextAccessor, IUserService userService, SignInManager<User> signInManager)
+        private readonly Context _context;
+        public LoginController(IHttpContextAccessor httpContextAccessor, IUserService userService, Context context)
         {
             _httpContextAccessor = httpContextAccessor;
             _userService = userService;
-            _signInManager = signInManager;
+            _context = context;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
+
             return View();
         }
+
         [HttpPost]
-        public async Task<IActionResult> SignIn(UserLoginViewModel p)
+        public IActionResult Login(User user)
         {
-            if (ModelState.IsValid)
+            var userValue = _context.Users.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
+
+            if (userValue != null)
             {
-                var result = await _signInManager.PasswordSignInAsync(p.UserMail, p.Password, true, true);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Department");
-                }
+                HttpContext.Session.SetInt32("id", userValue.UserID);
+                HttpContext.Session.SetString("email", userValue.Email);
+                HttpContext.Session.SetString("fullname", userValue.UserFullName);
+                return RedirectToAction("Index", "Department");
             }
             else
             {
-                ModelState.AddModelError("", "Hatalı mail veya şifre");
+                ViewBag.alert = "Hatalı Giriş! Lütfen tekrar deneyiniz!";
+
             }
-
-            return View();
-
+            return View("Index","Login");
         }
+
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();

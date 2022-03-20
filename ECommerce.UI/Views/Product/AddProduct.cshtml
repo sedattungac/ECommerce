@@ -1,0 +1,66 @@
+﻿@model EntityLayer.Concrete.Product
+
+@{
+    ViewData["Title"] = "AddProduct";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<h1>Ürün Ekleme Sayfası</h1>
+
+<h4>Ürün</h4>
+<hr />
+<div class="row">
+    <div class="col-11 container-fluid">
+        <form asp-action="AddProduct">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Ürün Kodu</label>
+                <input type="text" value="@ViewBag.barcode" class="form-control text-dark " name="ProductCode" readonly>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductCatID" class="control-label"> Ürün Kategorisi (açılır sekme)</label>
+                <select class="dropdown-left form-control text-white" asp-for="ProductCatID" asp-items="ViewBag.list1"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label">Ürün Adı</label>
+                <input asp-for="ProductName" class="form-control text-white" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProductPrice" class="control-label"> Ürün Fiyatı</label>
+                <input type="number" step="any" min="0" asp-for="ProductPrice" class="form-control text-white" />
+                <span asp-validation-for="ProductPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductDescription" class="control-label"> Ürün Açıklaması</label>
+                <input asp-for="ProductDescription" class="form-control text-white" />
+                <span asp-validation-for="ProductDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductImage" class="control-label"> Ürün Resmi</label>
+                <input asp-for="ProductImage" class="form-control text-white" />
+                <span asp-validation-for="ProductImage" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label text-white">
+                    Ürünü Sergile
+                    <input class="form-check-input text-white" asp-for="ProductStatus" checked />
+                </label>
+            </div>
+            <div class="form-group">
+                <div class="float-left">
+                    <a class="btn btn-primary" asp-action="Index"><i class="mdi mdi-arrow-left"></i> Listeye Geri Dön</a>
+                </div>
+                <div class="float-right">
+                    <button type="submit" class="btn btn-primary"><i class="mdi mdi-content-save"></i> Kaydet</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+

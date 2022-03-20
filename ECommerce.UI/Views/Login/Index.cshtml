@@ -1,5 +1,4 @@
-﻿@model ECommerce.UI.Models.UserLoginViewModel
-@{
+﻿@{
     Layout = null;
 }
 
@@ -29,17 +28,17 @@
             <div class="row w-100 m-0">
                 <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
                     <div class="card col-lg-4 mx-auto">
-                        <p class="login-box-msg"> @ViewBag.error</p>
+                        <p class="login-box-msg"> @ViewBag.alert</p>
                         <div class="card-body px-5 py-5">
                             <h3 class="card-title text-left mb-3">Login</h3>
-                            <form method="post">
+                            <form action="/Login/Login" method="post">
                                 <div class="form-group">
                                     <label>Mail *</label>
-                                    <input type="text" name="UserMail" class="form-control p_input  text-white" placeholder="Email adresiniz" required>
+                                    <input type="text" name="EMail" class="form-control p_input  text-white" placeholder="Email adresiniz" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Şifre *</label>
-                                    <input type="text" name="Password" class="form-control p_input text-white" placeholder="Şifreniz"  required>
+                                    <input type="text" name="Password" class="form-control p_input text-white" placeholder="Şifreniz" required>
                                 </div>
                                 <div class="form-group d-flex align-items-center justify-content-between">
                                     <div class="form-check">

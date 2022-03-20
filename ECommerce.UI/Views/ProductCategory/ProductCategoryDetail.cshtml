@@ -1,0 +1,37 @@
+﻿@model EntityLayer.Concrete.ProductCategory
+
+@{
+    ViewData["Title"] = "ProductCategoryDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>ProductCategoryDetail</h1>
+
+<div>
+    <h4>ProductCategory</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductCatName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductCatName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductCatDescription)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductCatDescription)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductCatStatus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductCatStatus)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ProductCatID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
