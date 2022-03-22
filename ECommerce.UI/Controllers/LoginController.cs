@@ -50,7 +50,7 @@ namespace ECommerce.UI.Controllers
                 ViewBag.alert = "Hatalı Giriş! Lütfen tekrar deneyiniz!";
 
             }
-            return View("Index","Login");
+            return View("Index", "Login");
         }
 
         public async Task<IActionResult> Logout()

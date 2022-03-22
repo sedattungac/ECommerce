@@ -1,5 +1,9 @@
-﻿@inject ECommerce.Business.Abstract.IApplicationService applicationService;
+﻿@using Microsoft.AspNetCore.Http;
 
+@inject ECommerce.Business.Abstract.IApplicationService applicationService;
+@{
+    string fullname = Context.Session.GetString("fullname");
+}
 <nav class="navbar p-0 fixed-top d-flex flex-row">
     <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
         <a class="navbar-brand brand-logo-mini" href="index.html"><img src="~/AdminTemplate/template/assets/images/logo-mini.svg" alt="logo" /></a>
@@ -106,7 +110,7 @@
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                     <div class="navbar-profile">
                         <img class="img-xs rounded-circle" src="~/AdminTemplate/template/assets/images/faces/face15.jpg" alt="">
-                        <p class="mb-0 d-none d-sm-block navbar-profile-name">Sedat TUNGAÇ</p>
+                        <p class="mb-0 d-none d-sm-block navbar-profile-name">@fullname</p>
                         <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                     </div>
                 </a>
@@ -158,8 +162,8 @@
                         <span class="count bg-success"></span>
                     </div>
                     <div class="profile-name">
-                        <h5 class="mb-0 font-weight-normal">Sedat TUNGAÇ</h5>
-                        <span>Super Admin</span>
+                        <h5 class="mb-0 font-weight-normal">@fullname</h5>
+                        <span>               </span>
                     </div>
                 </div>
                 <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
@@ -253,7 +257,7 @@
         }
 
         <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/icons/mdi.html">
+            <a class="nav-link" href="/Login/LogOut">
                 <span class="menu-icon">
                     <i class="mdi mdi-logout text-danger"></i>
                 </span>

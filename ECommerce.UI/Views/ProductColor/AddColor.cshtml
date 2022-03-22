@@ -1,0 +1,45 @@
+﻿@model EntityLayer.Concrete.ProductColor
+
+@{
+    ViewData["Title"] = "AddColor";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>AddColor</h1>
+
+<h4>ProductColor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddColor">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductColorTitle" class="control-label"></label>
+                <input asp-for="ProductColorTitle" class="form-control" />
+                <span asp-validation-for="ProductColorTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductColorCode" class="control-label"></label>
+                <input asp-for="ProductColorCode" class="form-control" />
+                <span asp-validation-for="ProductColorCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductColorStock" class="control-label"></label>
+                <input asp-for="ProductColorStock" class="form-control" />
+                <span asp-validation-for="ProductColorStock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductID" class="control-label"> Ürün Kategorisi (açılır sekme)</label>
+                <select class="dropdown-left form-control text-white" asp-for="ProductID" asp-items="ViewBag.list1"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

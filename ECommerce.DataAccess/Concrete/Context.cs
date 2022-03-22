@@ -1,4 +1,5 @@
-﻿using EntityLayer.Concrete;
+﻿using ECommerce.Entity.Concrete;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -28,6 +29,9 @@ namespace DataAccessLayer.Concrete
         public DbSet<Title> Titles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerAddress> CustomerAddresses { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
     }
 }
